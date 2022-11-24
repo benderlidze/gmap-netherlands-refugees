@@ -218,7 +218,166 @@
     </div>
 
     <script type="text/javascript">
-       
+        const mapStyle = [
+            {
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#f5f5f5"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#616161"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#f5f5f5"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.land_parcel",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#bdbdbd"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#eeeeee"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#757575"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#e5e5e5"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#9e9e9e"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#757575"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#dadada"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#616161"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#9e9e9e"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#e5e5e5"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#eeeeee"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#c9c9c9"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#9e9e9e"
+                    }
+                ]
+            }
+        ]
         const colors = {
             primary: "#131d4b",
             secondary: "#0073c7",
@@ -296,7 +455,8 @@
 
 
             const markerImage = {  // https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerLabel
-                path: pinSVGFilled,
+                // path: pinSVGFilled,
+                icon: 'icon.png',
                 anchor: new google.maps.Point(12, 17),
                 fillOpacity: 1,
                 fillColor: colors.primary,
@@ -316,12 +476,12 @@
                 center: mapCenter,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-           
+            map.setOptions({ styles: mapStyle });
 
             var infowindow = new google.maps.InfoWindow();
             const icon = {
-                url: "icons/sun.png", // url
-                scaledSize: new google.maps.Size(50, 50), // size
+                url: "icon.png", // url
+                scaledSize: new google.maps.Size(50, 25), // size
             };
 
             d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQq7cIVpF3WEasWKz7Trab8BpEhCBgFe-4UPUR5H5YEerYgfh3oYocQ-Jvs6d_BZ8E5ktBlMK9HQAG8/pub?output=csv")
@@ -339,7 +499,7 @@
                                 position: { lat: +data.Latitude, lng: +data.Longitude },
                                 type: data['Location Type'],
                                 text: createInfo(data),
-                                icon: mIcon,
+                                icon: icon,
                                 label: mLabel,
                                 data: data
                             });
